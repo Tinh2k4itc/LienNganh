@@ -1,11 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import HomeForm from './Homepage/HomeForm';
+import AuthForm from './AuthPage/AuthForm'; // Import AuthForm
 
 const App: React.FC = () => {
+  const [showAuthForm, setShowAuthForm] = useState(false);
+
+  const handleAuthClick = () => {
+    setShowAuthForm(true);
+  };
+
+  const handleCloseAuthForm = () => {
+    setShowAuthForm(false);
+  };
+
   return (
-    // The main background color is now controlled by index.html body or HomePage's root div if needed.
-    // The previous gradient bg-gradient-to-br from-slate-100 to-sky-100 is removed as HomePage has its own section backgrounds.
-    <HomeForm />
+    <>
+      {showAuthForm ? (
+        <div className="flex justify-center items-center min-h-screen bg-gray-100">
+          <AuthForm onClose={handleCloseAuthForm} />
+        </div>
+      ) : (
+        <HomeForm onAuthClick={handleAuthClick} />
+      )}
+    </>
   );
 };
 

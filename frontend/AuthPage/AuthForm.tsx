@@ -6,7 +6,11 @@ import { UserIcon, LockIcon, EmailIcon } from './Icons';
 const DURATION_VAL = 600; // ms
 const DURATION_CLASS = `duration-[${DURATION_VAL}ms]`;
 
-const AuthForm: React.FC = () => {
+interface AuthFormProps {
+  onClose: () => void;
+}
+
+const AuthForm: React.FC<AuthFormProps> = ({ onClose }) => {
   const [activePanel, setActivePanel] = useState<'signIn' | 'signUp'>('signIn');
   const [animateToCover, setAnimateToCover] = useState<boolean>(false);
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
@@ -93,6 +97,17 @@ const AuthForm: React.FC = () => {
 
   return (
     <div className="bg-white w-[900px] max-w-[95vw] min-h-[550px] sm:h-[550px] rounded-2xl shadow-2xl relative overflow-hidden">
+        {/* Add a close button */}
+        <button
+            onClick={onClose}
+            className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 z-40"
+            aria-label="Close"
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+
       {/* Sign Up Form Panel */}
       <div className={`${signUpFormBaseClasses} ${signUpFormDynamicClasses}`}>
         <h1 className="text-3xl font-bold text-indigo-600 mb-6">Create Account</h1>

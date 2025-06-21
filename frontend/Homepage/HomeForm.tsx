@@ -4,14 +4,17 @@ import HeroSection from './HeroSection';
 import FeatureSection from './FeatureSection';
 import Footer from './Footer';
 
-const HomePage: React.FC = () => {
+interface HomePageProps {
+  onAuthClick: () => void;
+}
+
+const HomePage: React.FC<HomePageProps> = ({ onAuthClick }) => {
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar />
+      <Navbar onAuthClick={onAuthClick} />
       <main className="flex-grow">
         <HeroSection />
         <FeatureSection />
-        {/* You can add more sections here like Testimonials, Pricing, etc. */}
       </main>
       <Footer />
     </div>

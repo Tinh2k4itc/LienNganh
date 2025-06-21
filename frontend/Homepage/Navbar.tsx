@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
 import { Bars3Icon, XMarkIcon } from './Icons';
 
-const Navbar: React.FC = () => {
+interface NavbarProps {
+  onAuthClick: () => void;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ onAuthClick }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navLinks = [
     { href: '#', text: 'Home' },
     { href: '#', text: 'Take Quiz' },
-  ];
-
-  const authLinks = [
-    { href: '', text: 'Login' },
-    { href: '#', text: 'Register' },
   ];
 
   return (
@@ -40,20 +39,20 @@ const Navbar: React.FC = () => {
           </div>
           
           <div className="hidden md:flex md:items-center md:space-x-2 lg:space-x-3">
-            {authLinks.map((link) => (
-               <a
-                key={link.text}
-                href={link.href}
-                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                  link.text === 'Register' 
-                    ? 'bg-sky-500 text-white hover:bg-sky-600' 
-                    : 'text-slate-600 hover:text-sky-600 border border-slate-300 hover:border-sky-500'
-                }`}
-                aria-label={link.text}
-              >
-                {link.text}
-              </a>
-            ))}
+            <button
+              onClick={onAuthClick}
+              className="text-slate-600 hover:text-sky-600 px-3 py-2 rounded-md text-sm font-medium transition-colors border border-slate-300 hover:border-sky-500"
+              aria-label="Login"
+            >
+              Login
+            </button>
+            <button
+              onClick={onAuthClick}
+              className="bg-sky-500 text-white hover:bg-sky-600 px-4 py-2 rounded-md text-sm font-medium transition-colors"
+              aria-label="Register"
+            >
+              Register
+            </button>
           </div>
 
 
@@ -95,16 +94,22 @@ const Navbar: React.FC = () => {
           </div>
           <div className="pt-2 pb-3 border-t border-slate-200">
             <div className="px-2 space-y-1 sm:px-3">
-            {authLinks.map((link) => (
               <a
-                key={`mobile-${link.text}`}
-                href={link.href}
+                href="#"
+                onClick={(e) => { e.preventDefault(); onAuthClick(); }}
                 className="text-slate-600 hover:bg-sky-50 hover:text-sky-600 block px-3 py-2 rounded-md text-base font-medium transition-colors"
-                aria-label={link.text}
+                aria-label="Login"
               >
-                {link.text}
+                Login
               </a>
-            ))}
+              <a
+                href="#"
+                onClick={(e) => { e.preventDefault(); onAuthClick(); }}
+                className="text-slate-600 hover:bg-sky-50 hover:text-sky-600 block px-3 py-2 rounded-md text-base font-medium transition-colors"
+                aria-label="Register"
+              >
+                Register
+              </a>
             </div>
           </div>
         </div>
